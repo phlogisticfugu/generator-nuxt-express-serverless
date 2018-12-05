@@ -1,0 +1,9 @@
+{
+  "generator-node": {
+    "promptValues": {
+      "authorName": "Brad Ito",
+      "authorEmail": "phlogisticfugu@gmail.com",
+      "authorUrl": "https://bradito.me/"
+    }
+  }
+}
