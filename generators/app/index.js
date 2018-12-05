@@ -7,15 +7,20 @@ module.exports = class extends Generator {
   prompting() {
     // Have Yeoman greet the user.
     this.log(
-      yosay(`Welcome to the scrumtrulescent ${chalk.red('generator-nuxt-express-serverless')} generator!`)
+      yosay(`Welcome to the ${chalk.green('generator-nuxt-express-serverless')} generator!`)
     );
 
     const prompts = [
       {
-        type: 'confirm',
-        name: 'someAnswer',
-        message: 'Would you like to enable this option?',
-        default: true
+        type: 'input',
+        name: 'appname',
+        message: 'What is your app/project name?',
+        default: this.appname
+      },
+      {
+        type: 'input',
+        name: 'appdescription',
+        message: 'Description for your project'
       }
     ];
 
@@ -26,13 +31,21 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    this.fs.copy(
-      this.templatePath('dummyfile.txt'),
-      this.destinationPath('dummyfile.txt')
+    this.fs.copyTpl(
+      this.templatePath('package.json.ejs'),
+      this.destinationPath('package.json'),
+      {
+        appname: this.answers.appname,
+        appdescription: this.answers.appdescription
+      }
     );
   }
 
   install() {
-    this.installDependencies();
+    this.installDependencies({
+      bower: false,
+      npm: false,
+      yarn: true
+    });
   }
 };
